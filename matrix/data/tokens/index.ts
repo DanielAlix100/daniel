@@ -25,7 +25,7 @@ farmPack.forEach(p => {
     });
 });
 
-type Token =  {
+type Token = {
     name: string | undefined;
     health: Health | undefined;
     movement: Movement | null | undefined;
@@ -33,8 +33,14 @@ type Token =  {
 
 
 export function run() {
-    const printer = new TokenPrinter(document.querySelector("body")!);
-    printer.print([...farmTokens,...farmTokens, ...farmTokens,...farmTokens, ...farmTokens,...farmTokens, ...farmTokens,...farmTokens, ...farmTokens,...farmTokens]);
+    const printer = new TokenPrinter(document.querySelector(".page")!);
+    const target = [] as Token[];
+    farmTokens.forEach(token => {
+        for (let i = 0; i < 7; i++) {
+            target.push(token);
+        }
+    });
+    printer.print(target);
 }
 
 class TokenPrinter {
@@ -63,32 +69,32 @@ class TokenPrinter {
         if (!movement) return NONE;
         const direction = this.printDirection(movement.direction);
         return `<div class="directions">${direction}</div>:${movement.distance}`
-      }
+    }
 
-      printDirection(direction: string | RangeDirections[]): string {
+    printDirection(direction: string | RangeDirections[]): string {
         if (!direction) return NONE;
         if (typeof direction === "string") return `<div class="direction ${direction}">${direction}</div>`;
         return direction.map(d => this.printDirection(d)).join("");
-      }
-        
-    
+    }
+
+
     private printHealth(health?: Health) {
         if (!health) return NONE;
         if (typeof health == "string") return health;
         if (typeof health == "number") return health;
         const typedHealth = health as { type: string; bonus: number };
         if (typedHealth.type) {
-          return this.printDamageBonus(health)
+            return this.printDamageBonus(health)
         }
         return "todo";
-      }
-      
-      printDamageBonus(dice?: DamageBonus) {
+    }
+
+    printDamageBonus(dice?: DamageBonus) {
         if (!dice) return "none";
         if (!dice.bonus) return dice.type;
         return `${dice.type}+${dice.bonus}`;
-      }
-          
-    
+    }
+
+
 }
 
