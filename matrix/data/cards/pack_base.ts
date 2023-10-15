@@ -8,6 +8,7 @@ export {
   GenericCard,
   Health,
   Movement,
+  Rarity,
   Upgrade, 
   RangeDirections,
   orthogonalRanges,
