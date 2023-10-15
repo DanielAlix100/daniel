@@ -3,7 +3,7 @@ const NONE = "none";
 import { farmPack } from "../cards/farmpack.js";
 import type { DamageBonus, Health, Movement, RangeDirections } from "../cards/pack_base.js";
 
-const farmTokens = farmPack.map(c => ({
+export const farmTokens = farmPack.map(c => ({
     name: c.name,
     health: c.health,
     movement: c.movement,
@@ -32,15 +32,15 @@ type Token = {
 }
 
 
-export function run() {
-    const printer = new TokenPrinter(document.querySelector(".page")!);
-    const target = [] as Token[];
-    farmTokens.forEach(token => {
+export function print(target: HTMLElement, tokens: Token[]) {
+    const printer = new TokenPrinter(target);
+    const tokenList = [] as Token[];
+    tokens.forEach(token => {
         for (let i = 0; i < 7; i++) {
-            target.push(token);
+            tokenList.push(token);
         }
     });
-    printer.print(target);
+    printer.print(tokenList);
 }
 
 class TokenPrinter {

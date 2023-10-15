@@ -5,70 +5,7 @@
   <meta charset="UTF-8" />
   <title>Home</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    .bold {
-      font-weight: 1000;
-    }
-
-    .bold::after {
-      content: ""
-    }
-
-    .page {
-      width: 8.5in;
-      height: 11in;
-    }
-
-    .castles {
-      font-size: 0.7rem;
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .castle {
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border: 1px dashed #0004;
-      width: 4in;
-      height: 1in;
-    }
-
-
-    .card-name {
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      font-size: 1rem;
-      font-weight: 1000;
-      text-align: center;
-      background-color: #0002;
-    }
-
-    .card-name.plus {
-      color: red;
-    }
-
-    .card-name.plus::after {
-      content: " +";
-    }
-
-    .rarity {
-      font-family: Georgia, 'Times New Roman', Times, serif;
-    }
-
-    .rarity>.value {
-      color: green;
-    }
-
-    .rarity.Common>.value {
-      color: gray;
-    }
-
-    .damage,
-    .health {
-      display: inline-block;
-    }
+    @import url(./castles.css);
   </style>
 </head>
 

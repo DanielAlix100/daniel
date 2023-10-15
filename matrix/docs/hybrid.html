@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Home</title>
+  <style>
+    @import url(./castles.css);
+    @import url(./tokens.css);
+  </style>
+</head>
+
+<body>
+  <script type="module">
+    import { print as printCastles, castles } from "../data/cards/castles.js"
+    printCastles(document.querySelector(".castles"), castles);
+
+    import { print as printTokens, farmTokens } from "../data/tokens/index.js"
+    printTokens(document.querySelector(".tokens"), farmTokens);
+  </script>
+  <div class="page">
+    <div class="tokens"></div>
+    <div class="castles"></div>
+  </div>
+</body>
+
+</html>
