@@ -18,16 +18,17 @@ body {
   }
 
   .page {
+    padding-left:0.2in;
     width: 8.5in;
     height: 11in;
     overflow: hidden;
-    border: 1px solid red;
   }
 
   .tokens {
     display: flex;
     flex-wrap: wrap;
     gap: 1px;
+
   }
 
   .token {

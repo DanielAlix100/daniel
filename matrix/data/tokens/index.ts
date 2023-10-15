@@ -36,7 +36,7 @@ export function print(target: HTMLElement, tokens: Token[]) {
     const printer = new TokenPrinter(target);
     const tokenList = [] as Token[];
     tokens.forEach(token => {
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 8; i++) {
             tokenList.push(token);
         }
     });

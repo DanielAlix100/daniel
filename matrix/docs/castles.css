@@ -18,13 +18,14 @@ body {
 
   .castles {
     font-size: 0.7rem;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 4in 4in;
+    column-gap: 0.075in;
   }
 
   .castle {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    border: 1px dashed #0004;
+    outline: 1px dashed #0004;
     width: 4in;
     height: 1in;
   }

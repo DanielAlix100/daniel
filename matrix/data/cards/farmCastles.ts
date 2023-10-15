@@ -126,14 +126,6 @@ export const castles = [
         ability: "Bounty: Pickup a card, if you are already at max Card Limit, Play the card as an Free Action",
         uses: 3
     },
-    {
-        name: "Barracks",
-        rarity: "Uncommon",
-        health: 20,
-        damage: 1,
-        passive: "May draw until card limit is reached at the end of each turn",
-        ability: "Orbital Strike: Deal 8 damage to any token on the board",
-        uses: 3
-    }
+    
 
 ] satisfies Partial<Castle>[];
