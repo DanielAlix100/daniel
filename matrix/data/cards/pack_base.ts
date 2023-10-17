@@ -1,6 +1,7 @@
 const NONE = 'none';
 export {
   Attack,
+  Range,
   Dice,
   Damage,
   DamageBonus,
@@ -19,10 +20,10 @@ export {
 }
 
 type Attack = {
-  name: string
-  range: Movement
-  damage: Damage
-  notes?: string
+  name: string;
+  range: Range;
+  damage: Damage;
+  notes?: string;
 }
 
 type Dice = "d4" | "d6" | "d8" | "d10" | "d12" | "d20" | "d100"
@@ -44,6 +45,11 @@ const adjacentRanges: RangeDirections[] = orthogonalRanges.concat(diagonalRanges
 const forwardRanges: RangeDirections[] = ["↖", "↑", "↗"];
 
 type Movement = {
+  distance: number;
+  direction: RangeDirection
+}
+
+type Range = {
   distance: number | "Touch"
   direction: RangeDirection
 }
@@ -143,19 +149,25 @@ class CardPrinter {
     Attack: ${attack}`
   }
 
+  printRange(range?: Range) {
+    if (!range) return NONE;
+    const direction = this.printDirection(range.direction);
+    const distance = range.direction;
+    return `<div class="directions">${direction}</div>: ${distance}`
+  }
+  
   printAttack(attack?: Attack | Attack[]): string {
     if (!attack) return "none"
     if (Array.isArray(attack)) {
       return attack.map(a => this.printAttack(a)).join("")
     } else {
       const damage = this.printDamage(attack.damage);
-      const direction = this.printDirection(attack.range.direction);
+      const range  = this.printRange(attack.range);
+      const items = [range, damage, attack.notes].filter(i => !!i).join(",");
+
       return `
     <div class="attack">
-      <span class="label">${attack.name}</span>, 
-      <div class="directions">${direction}</div>: ${attack.range.distance},
-      ${damage} 
-      ${attack.notes ? (", " + attack.notes) : ""}
+      <span class="label">${attack.name}</span>, ${items}
     </div>`
     }
   }
