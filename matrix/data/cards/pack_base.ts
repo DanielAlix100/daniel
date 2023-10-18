@@ -152,24 +152,20 @@ class CardPrinter {
   printRange(range?: Range) {
     if (!range) return NONE;
     const direction = this.printDirection(range.direction);
-    const distance = range.direction;
+    const distance = range.distance;
     return `<div class="directions">${direction}</div>: ${distance}`
   }
   
   printAttack(attack?: Attack | Attack[]): string {
-    if (!attack) return "none"
+    if (!attack) return NONE
     if (Array.isArray(attack)) {
       return attack.map(a => this.printAttack(a)).join("")
-    } else {
+    } 
       const damage = this.printDamage(attack.damage);
-      const range  = this.printRange(attack.range);
+      const range  = `Range: ${this.printRange(attack.range)}`;
       const items = [range, damage, attack.notes].filter(i => !!i).join(",");
 
-      return `
-    <div class="attack">
-      <span class="label">${attack.name}</span>, ${items}
-    </div>`
-    }
+      return `<div class="attack"><span class="label">${attack.name}</span>, ${items}</div>`
   }
 
   printDirection(direction: string | RangeDirections[]): string {
