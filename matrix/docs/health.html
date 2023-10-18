@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .page {
+            width: 8.5in;
+            height: 11in;
+            border: 1px solid #0004;
+            overflow: hidden;
+        }
+
+        .grid-8-by {
+            margin: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .cell {
+            outline: 1px dotted black;
+            width: 0.75in;
+            height: 0.5in;
+            position: relative;
+            text-align: center;
+            line-height: 0.5in;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="grid-8-by">
+        </div>
+    </div>
+    <script>
+        const target = document.querySelector(".grid-8-by");
+        for (let i = 0; i < 10 * 20; i++) {
+            const cell = document.createElement("div");
+            cell.classList.add("cell");
+            const value = [1, 3, 5, 10, 2][Math.floor(i / 50)];
+            cell.innerHTML = `<div class="circle">${value}</div>`;
+            target.appendChild(cell);
+        }
+    </script>
+</body>
+
+</html>
