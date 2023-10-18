@@ -123,8 +123,16 @@ class CardPrinter {
 
   printDamageBonus(dice?: DamageBonus) {
     if (!dice) return "none";
-    if (!dice.bonus) return dice.type;
-    return `${dice.type}+${dice.bonus}`;
+    const diceType = this.printDice(dice.type);
+    if (!dice.bonus) return diceType;
+    return `${diceType}+${dice.bonus}`;
+  }
+
+  printDice(type: Dice | Dice[]): string {
+    if (Array.isArray(type)) {
+      return type.map(t =>this.printDice(t)).join("+");
+    }
+    return type;
   }
 
   printDamage(damage?: Damage) {
