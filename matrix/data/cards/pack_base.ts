@@ -137,12 +137,12 @@ class CardPrinter {
 
   printDamage(damage?: Damage) {
     if (!damage) return "none";
-    if (typeof damage === "number") return `Damage: ${damage}`;
+    if (typeof damage === "number") return `<span class="bold">Damage:</span> ${damage}`;
     switch (damage.type) {
       case "summon":
         return `${this.printSummon(damage)}`;
       default:
-        return `Damage: ${this.printDamageBonus(damage)}`;
+        return `<span class="bold">Damage:</span> ${this.printDamageBonus(damage)}`;
     }
   }
   printSummon(damage: Damage) {
@@ -152,9 +152,9 @@ class CardPrinter {
     const movement = this.printMovement(damage.movement);
     const attack = this.printAttack(damage.attacks);
     return `<br/>
-    Health: ${health}, 
-    Movement: ${movement}, 
-    Attack: ${attack}`
+    <span class="bold">Health:</span> ${health}, 
+    <span class="bold">Movement:</span> ${movement}, 
+    <span class="bold">Attack:</span> ${attack}`
   }
 
   printRange(range?: Range) {
@@ -170,10 +170,11 @@ class CardPrinter {
       return attack.map(a => this.printAttack(a)).join("")
     } 
       const damage = this.printDamage(attack.damage);
-      const range  = `Range: ${this.printRange(attack.range)}`;
-      const items = [range, damage, attack.notes].filter(i => !!i).join(",");
+      const range  = `<span class="bold">Range:</span> ${this.printRange(attack.range)}`;
+      const notes = attack.notes ? `<span class="bold">Notes:</span> ${attack.notes}` : "";
+      const items = [range, damage, notes].filter(i => !!i).join(", ");
 
-      return `<div class="attack"><span class="label">${attack.name}</span>, ${items}</div>`
+      return `<span class="attack"><span class="label">${attack.name}</span>, ${items}</span>`
   }
 
   printDirection(direction: string | RangeDirections[]): string {
@@ -203,13 +204,13 @@ class CardPrinter {
         <span class="bold">Rarity</span>
         <span class="value">${card.rarity}</span>
       </div>
-      <div class='health'><span class="bold">Health</span>${health}</div>
-      <div class='movement'><span class="bold">Movement</span> ${movement}</div>
-      <div class='attacks'><span class="bold">Attacks</span>${attack}</div>
-      <div class='passive'><span class="bold">Passive</span>${card.passive || "none"}</div>
-      <div class='ability'><span class="bold">Ability</span>${ability}</div>
-      <div class='uses'><span class="bold">Uses</span>${card.uses}</div>
-      <div class='upgrades'><span class="bold">Upgrades</span>${upgrades}</div>
+      <div class='health'><span class="bold title newline">Health</span>${health}</div>
+      <div class='movement'><span class="bold title newline">Movement</span> ${movement}</div>
+      <div class='attacks'><span class="bold title newline">Attacks</span>${attack}</div>
+      <div class='passive'><span class="bold title newline">Passive</span>${card.passive || "none"}</div>
+      <div class='ability'><span class="bold title newline">Ability</span>${ability}</div>
+      <div class='uses'><span class="bold title newline">Uses</span>${card.uses}</div>
+      <div class='upgrades'><span class="bold title newline">Upgrades</span>${upgrades}</div>
     </div>`
 
     this.dom.append(asDom(template));

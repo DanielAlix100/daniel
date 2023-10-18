@@ -102,7 +102,7 @@ const TractorCard = new GenericCard({
         type: "d4",
         bonus: 0,
       }, 
-      notes: "Pushes token back one space. If token is not able to be pushed: backed into a wall or Castle Card then it is dealt + 1 damage."
+      notes: "Pushes token back one space. If token is not able to be pushed: backed into a wall or Castle Card, then it is dealt + 1 damage."
     },
   ],
   passive: "Can be pushed in any direction by a Friendly Card",
@@ -141,7 +141,7 @@ const TractorRiderCard = new GenericCard({
         type: "d4",
         bonus: 0,
       },
-      notes: "Pushes card back one space"
+      notes: "Pushes token back one space. If token is not able to be pushed: backed into a wall or Castle Card, then it is dealt + 1 damage."
     },
   ],
   passive: null,
