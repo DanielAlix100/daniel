@@ -87,6 +87,33 @@ const SniperCard = new GenericCard({
     uses: 0,
     upgrades: [],
 })
+const Card = new GenericCard({
+    name: "Sniper",
+    rarity: "Uncommon",
+    health: "Max Sniper Health",
+    movement: {
+        distance: 1,
+        direction: adjacentRanges,
+    },
+    attacks: [
+        {
+            name: "Sniper Rifle",
+            range: {
+                distance: 4,
+                direction: adjacentRanges
+            },
+            damage: {
+                type: ["d4"],
+                bonus: 2,
+            },
+            notes: NONE,
+        }
+    ],
+    passive: NONE,
+    ability: NONE,
+    uses: 0,
+    upgrades: [],
+})
 
 export const militiaPack = [
     RiflemanCard, GrenadierCard, SniperCard

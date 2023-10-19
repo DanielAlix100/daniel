@@ -21,8 +21,22 @@ farmPack.forEach(p => {
             name: attack.name,
             health,
             movement,
-        });
+        });        
     });
+
+    if (!p.ability) return;
+    if (typeof p.ability === "string") return;
+
+    const damage = p.ability.damage;
+    if (!damage) return;
+    if (typeof damage === "number") return;
+    if (damage.type !== "summon") return;
+
+    farmTokens.push({
+        name: damage.name,
+        health: damage.health,
+        movement: damage.movement,
+    })
 });
 
 type Token = {

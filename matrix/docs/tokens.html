@@ -14,8 +14,9 @@
     [page goes here]
   </div>
   <script type="module">
-    import {run} from "../data/tokens/index.js";
-    run();
+    import {print, farmTokens} from "../data/tokens/index.js";
+    const target = document.querySelector(".page");
+    print(target, farmTokens);
   </script>
 </body>
 
