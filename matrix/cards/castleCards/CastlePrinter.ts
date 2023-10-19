@@ -1,6 +1,7 @@
-import { Attack, Damage, DamageBonus, GenericCard, Health, NONE, Rarity } from "./pack_base.js";
+import { Attack, Damage, DamageBonus, Health, NONE } from "../pack_base.js";
+import { Castle, asDom } from "./farmCastles.js";
 
-class CastlePrinter {
+export class CastlePrinter {
 
     private dom: HTMLElement;
 
@@ -12,16 +13,16 @@ class CastlePrinter {
         if (!health) return NONE;
         if (typeof health == "string") return health;
         if (typeof health == "number") return health;
-        const typedHealth = health as { type: string; bonus: number };
+        const typedHealth = health as { type: string; bonus: number; };
         if (typedHealth.type) {
-            return this.printDamageBonus(health)
+            return this.printDamageBonus(health);
         }
         return "todo";
     }
     printAttack(attack?: Attack | Attack[]): string {
-        if (!attack) return "none"
+        if (!attack) return "none";
         if (Array.isArray(attack)) {
-            return attack.map(a => this.printAttack(a)).join("")
+            return attack.map(a => this.printAttack(a)).join("");
         } else {
             const damage = this.printDamage(attack.damage);
             return `
@@ -29,7 +30,7 @@ class CastlePrinter {
       <span class="label">${attack.name}</span>, 
       ${damage} 
       ${attack.notes ? (", " + attack.notes) : ""}
-    </div>`
+    </div>`;
         }
     }
 
@@ -54,7 +55,7 @@ class CastlePrinter {
         if (damage.type !== "summon") throw "expect a summon";
         const health = this.printHealth(damage.health);
         return `<br/>
-      Health: ${health}`
+      Health: ${health}`;
     }
 
     print(card: Castle) {
@@ -76,7 +77,7 @@ class CastlePrinter {
         <div class='passive'><span class="bold">Passive: </span>${card.passive || "none"}</div>
         <div class='ability'><span class="bold">Ability: </span>${ability}</div>
         <div class='uses'><span class="bold">Uses: </span>${card.uses}</div>
-      </div>`
+      </div>`;
 
         this.dom.append(asDom(template));
     }
@@ -89,42 +90,3 @@ class CastlePrinter {
 
 
 }
-
-function asDom(html: string) {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.firstElementChild as HTMLElement;
-}
-
-export function print(target: HTMLElement, castles: Castle[]) {
-    const printer = new CastlePrinter(target);
-    castles.forEach(c => {
-        for (let i = 0; i < 2; i++) {
-            printer.print(c);
-        }
-    });
-}
-
-
-type Castle = {
-    name: string;
-    rarity: Rarity;
-    health: Health;
-    damage: Damage;
-    ability: null | string | Attack;
-    passive: null | string;
-    uses: number;
-}
-
-export const castles = [
-    {
-        name: "Barracks",
-        rarity: "Uncommon",
-        health: 20,
-        damage: 1,
-        passive: "May draw until Card Limit is reached at the end of each turn",
-        ability: "Orbital Strike: Deal 8 damage to any Token on the board",
-        uses: 3
-    },
-
-] satisfies Partial<Castle>[];

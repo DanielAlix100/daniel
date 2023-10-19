@@ -1,5 +1,5 @@
 import { CastlePrinter } from "./CastlePrinter.js";
-import { Attack, Damage, GenericCard, Health, Rarity } from "./pack_base.js";
+import { Attack, Damage, GenericCard, Health, Rarity } from "../pack_base.js";
 
 export function asDom(html: string) {
     const div = document.createElement("div");

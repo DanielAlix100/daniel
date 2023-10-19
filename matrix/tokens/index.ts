@@ -1,6 +1,6 @@
 const NONE = "none";
 
-import { farmPack } from "../cards/farmpack.js";
+import { farmPack } from "../cards/characterCards/farmpack.js";
 import type { DamageBonus, Health, Movement, RangeDirections } from "../cards/pack_base.js";
 
 export const farmTokens = farmPack.map(c => ({
@@ -112,3 +112,7 @@ class TokenPrinter {
 
 }
 
+
+export function run() {
+    print(document.querySelector(".tokens")!, farmTokens);
+}

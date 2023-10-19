@@ -1,4 +1,4 @@
-import {Range, GenericCard, Health, Movement, DamageBonus, Damage, Attack, Upgrade, RangeDirections, orthogonalRanges, adjacentRanges, diagonalRanges, forwardRanges, NONE} from "./pack_base.js";
+import {Range, GenericCard, Health, Movement, DamageBonus, Damage, Attack, Upgrade, RangeDirections, orthogonalRanges, adjacentRanges, diagonalRanges, forwardRanges, NONE} from "../pack_base.js";
 
 const FarmerCard = new GenericCard({
   name: "Farmer",

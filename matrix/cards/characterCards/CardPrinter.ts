@@ -1,102 +1,6 @@
-const NONE = 'none';
-export {
-  Attack,
-  Range,
-  Dice,
-  Damage,
-  DamageBonus,
-  Formula,
-  GenericCard,
-  Health,
-  Movement,
-  Rarity,
-  Upgrade, 
-  RangeDirections,
-  orthogonalRanges,
-  diagonalRanges,
-  adjacentRanges,
-  forwardRanges,
-  NONE
-}
+import { Health, NONE, Movement, DamageBonus, Dice, Damage, Range, Attack, RangeDirections, Upgrade, GenericCard, asDom } from "../pack_base.js";
 
-type Attack = {
-  name: string;
-  range: Range;
-  damage: Damage;
-  notes?: string;
-}
-
-type Dice = "d4" | "d6" | "d8" | "d10" | "d12" | "d20" | "d100"
-type Rarity =
-  | "Common"
-  | "Uncommon"
-  | "Rare"
-  | "Epic"
-  | "Legendary"
-  | "Mythic"
-  | "Uncommon+"
-
-type RangeDirections = "←" | "↑" | "→" | "↓" | "↖" | "↗" | "↘" | "↙";
-type RangeDirection = RangeDirections | Array<RangeDirections>;
-
-const orthogonalRanges: RangeDirections[] = ["←", "↑", "↓", "→"];
-const diagonalRanges: RangeDirections[] = ["↖", "↙", "↗", "↘"];
-const adjacentRanges: RangeDirections[] = orthogonalRanges.concat(diagonalRanges);
-const forwardRanges: RangeDirections[] = ["↖", "↑", "↗"];
-
-type Movement = {
-  distance: number;
-  direction: RangeDirection
-}
-
-type Range = {
-  distance: number | "Touch"
-  direction: RangeDirection
-}
-
-type DamageBonus = {
-  type: Dice | Array<Dice>
-  bonus: number
-}
-
-type Damage =
-  | number
-  | {
-    type: "summon"
-    name: string
-    health: Health
-    movement: Movement
-    attacks: Array<Attack>
-  }
-  | DamageBonus
-
-type Formula = string
-
-type Health =
-  | number
-  | Formula
-  | DamageBonus
-
-type Upgrade = { with: string; become: string };
-
-class GenericCard {
-  name?: string
-  rarity?: Rarity
-  health?: Health
-  movement?: null | Movement
-  attacks?: null | Array<Attack>
-  passive?: null | string
-  ability?: null | string | Attack
-  uses?: number
-  upgrades?: Array<Upgrade>
-
-  constructor(state: Partial<GenericCard>) {
-    Object.assign(this, state)
-  }
-}
-
-
-class CardPrinter {
+export class CardPrinter {
 
   private dom: HTMLElement;
 
@@ -108,9 +12,9 @@ class CardPrinter {
     if (!health) return NONE;
     if (typeof health == "string") return health;
     if (typeof health == "number") return health;
-    const typedHealth = health as { type: string; bonus: number };
+    const typedHealth = health as { type: string; bonus: number; };
     if (typedHealth.type) {
-      return this.printDamageBonus(health)
+      return this.printDamageBonus(health);
     }
     return "todo";
   }
@@ -118,7 +22,7 @@ class CardPrinter {
   printMovement(movement?: Movement) {
     if (!movement) return NONE;
     const direction = this.printDirection(movement.direction);
-    return `<div class="directions">${direction}</div>:${movement.distance}`
+    return `<div class="directions">${direction}</div>:${movement.distance}`;
   }
 
   printDamageBonus(dice?: DamageBonus) {
@@ -130,7 +34,7 @@ class CardPrinter {
 
   printDice(type: Dice | Dice[]): string {
     if (Array.isArray(type)) {
-      return type.map(t =>this.printDice(t)).join("+");
+      return type.map(t => this.printDice(t)).join("+");
     }
     return type;
   }
@@ -154,27 +58,27 @@ class CardPrinter {
     return `<br/>
     <span class="bold">Health:</span> ${health}, 
     <span class="bold">Movement:</span> ${movement}, 
-    <span class="bold">Attack:</span> ${attack}`
+    <span class="bold">Attack:</span> ${attack}`;
   }
 
   printRange(range?: Range) {
     if (!range) return NONE;
     const direction = this.printDirection(range.direction);
     const distance = range.distance;
-    return `<div class="directions">${direction}</div>: ${distance}`
+    return `<div class="directions">${direction}</div>: ${distance}`;
   }
-  
-  printAttack(attack?: Attack | Attack[]): string {
-    if (!attack) return NONE
-    if (Array.isArray(attack)) {
-      return attack.map(a => this.printAttack(a)).join("")
-    } 
-      const damage = this.printDamage(attack.damage);
-      const range  = `<span class="bold">Range:</span> ${this.printRange(attack.range)}`;
-      const notes = attack.notes ? `<span class="bold">Notes:</span> ${attack.notes}` : "";
-      const items = [range, damage, notes].filter(i => !!i).join(", ");
 
-      return `<span class="attack"><span class="label">${attack.name}</span>, ${items}</span>`
+  printAttack(attack?: Attack | Attack[]): string {
+    if (!attack) return NONE;
+    if (Array.isArray(attack)) {
+      return attack.map(a => this.printAttack(a)).join("");
+    }
+    const damage = this.printDamage(attack.damage);
+    const range = `<span class="bold">Range:</span> ${this.printRange(attack.range)}`;
+    const notes = attack.notes ? `<span class="bold">Notes:</span> ${attack.notes}` : "";
+    const items = [range, damage, notes].filter(i => !!i).join(", ");
+
+    return `<span class="attack"><span class="label">${attack.name}</span>, ${items}</span>`;
   }
 
   printDirection(direction: string | RangeDirections[]): string {
@@ -185,12 +89,12 @@ class CardPrinter {
 
   printUpgrades(upgrades?: Array<Upgrade>) {
     if (!upgrades?.length) return "none";
-    return upgrades?.map(upgrade => `${upgrade.with} → ${upgrade.become}`)
+    return upgrades?.map(upgrade => `${upgrade.with} → ${upgrade.become}`);
   }
 
   print(card: GenericCard) {
     const health = this.printHealth(card.health);
-    const movement = this.printMovement(card.movement!)
+    const movement = this.printMovement(card.movement!);
     const attack = this.printAttack(card.attacks || []);
     const ability = this.printAbility(card.ability);
     const upgrades = this.printUpgrades(card.upgrades);
@@ -211,7 +115,7 @@ class CardPrinter {
       <div class='ability'><span class="bold title newline">Ability</span>${ability}</div>
       <div class='uses'><span class="bold title newline">Uses</span>${card.uses}</div>
       <div class='upgrades'><span class="bold title newline">Upgrades</span>${upgrades}</div>
-    </div>`
+    </div>`;
 
     this.dom.append(asDom(template));
   }
@@ -223,16 +127,4 @@ class CardPrinter {
   }
 
 
-}
-
-export function print(target: HTMLElement, cards: GenericCard[]) {
-  const printer = new CardPrinter(target);
-  cards.forEach(c => printer.print(c));
-}
-
-
-function asDom(html: string) {
-  const div = document.createElement("div");
-  div.innerHTML = html;
-  return div.firstElementChild as HTMLElement;
 }

@@ -12,11 +12,13 @@
 
 <body>
   <script type="module">
-    import { print as printCastles, castles } from "../data/cards/castles.js"
-    printCastles(document.querySelector(".castles"), castles);
 
-    import { print as printTokens, farmTokens } from "../data/tokens/index.js"
-    printTokens(document.querySelector(".tokens"), farmTokens);
+    import { run as printCastles } from "../cards/castleCards/index.js";
+    printCastles();
+
+    import { run as printTokens } from "../tokens/index.js"
+    printTokens();
+
   </script>
   <div class="page">
     <div class="tokens"></div>

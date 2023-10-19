@@ -1,5 +1,5 @@
 
-import { GenericCard, Health, Movement, DamageBonus, Damage, Attack, Upgrade, RangeDirections, orthogonalRanges, adjacentRanges, diagonalRanges, forwardRanges, NONE } from "./pack_base.js";
+import { GenericCard, Health, Movement, DamageBonus, Damage, Attack, Upgrade, RangeDirections, orthogonalRanges, adjacentRanges, diagonalRanges, forwardRanges, NONE } from "../pack_base.js";
 
 const RiflemanCard = new GenericCard({
     name: "Rifleman",
