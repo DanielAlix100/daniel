@@ -95,7 +95,7 @@ const TractorCard = new GenericCard({
     {
       name: "Ram",
       range: {
-        distance: 0,
+        distance: "Touch",
         direction: orthogonalRanges,
       },
       damage: {
@@ -134,7 +134,7 @@ const TractorRiderCard = new GenericCard({
     {
       name: "Ram",
       range: {
-        distance: 0,
+        distance: "Touch",
         direction: orthogonalRanges,
       },
       damage: {

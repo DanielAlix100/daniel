@@ -1,43 +1,11 @@
 const NONE = "none";
 
 import { farmPack } from "../cards/characterCards/farmpack.js";
-import type { DamageBonus, Health, Movement, RangeDirections } from "../cards/pack_base.js";
+import { militiaPack } from "../cards/characterCards/militiapack.js";
+import type { DamageBonus, GenericCard, Health, Movement, RangeDirections } from "../cards/pack_base.js";
 
-export const farmTokens = farmPack.map(c => ({
-    name: c.name,
-    health: c.health,
-    movement: c.movement,
-}));
-
-farmPack.forEach(p => {
-    p.attacks?.forEach(attack => {
-        const damage = attack.damage;
-        if (!damage) return;
-        if (typeof damage === "number") return;
-        if (damage.type !== "summon") return;
-        const health = damage.health;
-        const movement = damage.movement;
-        farmTokens.push({
-            name: attack.name,
-            health,
-            movement,
-        });        
-    });
-
-    if (!p.ability) return;
-    if (typeof p.ability === "string") return;
-
-    const damage = p.ability.damage;
-    if (!damage) return;
-    if (typeof damage === "number") return;
-    if (damage.type !== "summon") return;
-
-    farmTokens.push({
-        name: damage.name,
-        health: damage.health,
-        movement: damage.movement,
-    })
-});
+export const farmTokens = tokenizePack(farmPack);
+export const militiaTokens = tokenizePack(militiaPack);
 
 type Token = {
     name: string | undefined;
@@ -45,6 +13,45 @@ type Token = {
     movement: Movement | null | undefined;
 }
 
+
+function tokenizePack(pack: GenericCard[]) {
+    const tokens = pack.map(c => ({
+        name: c.name,
+        health: c.health,
+        movement: c.movement,
+    }));
+
+    pack.forEach(p => {
+        p.attacks?.forEach(attack => {
+            const damage = attack.damage;
+            if (!damage) return;
+            if (typeof damage === "number") return;
+            if (damage.type !== "summon") return;
+            const health = damage.health;
+            const movement = damage.movement;
+            tokens.push({
+                name: attack.name,
+                health,
+                movement,
+            });
+        });
+
+        if (!p.ability) return;
+        if (typeof p.ability === "string") return;
+
+        const damage = p.ability.damage;
+        if (!damage) return;
+        if (typeof damage === "number") return;
+        if (damage.type !== "summon") return;
+
+        tokens.push({
+            name: damage.name,
+            health: damage.health,
+            movement: damage.movement,
+        });
+    });
+    return tokens;
+}
 
 export function print(target: HTMLElement, tokens: Token[]) {
     const printer = new TokenPrinter(target);
@@ -114,5 +121,5 @@ class TokenPrinter {
 
 
 export function run() {
-    print(document.querySelector(".tokens")!, farmTokens);
+    print(document.querySelector(".page")!, [...militiaTokens]);
 }

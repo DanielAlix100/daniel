@@ -18,6 +18,7 @@ export {
   diagonalRanges,
   adjacentRanges,
   forwardRanges,
+  aheadRanges,
   NONE
 }
 
@@ -45,6 +46,7 @@ const orthogonalRanges: RangeDirections[] = ["←", "↑", "↓", "→"];
 const diagonalRanges: RangeDirections[] = ["↖", "↙", "↗", "↘"];
 const adjacentRanges: RangeDirections[] = orthogonalRanges.concat(diagonalRanges);
 const forwardRanges: RangeDirections[] = ["↖", "↑", "↗"];
+const aheadRanges: RangeDirections[] = ["↑"];
 
 type Movement = {
   distance: number;
@@ -89,7 +91,7 @@ class GenericCard {
   attacks?: null | Array<Attack>
   passive?: null | string
   ability?: null | string | Attack
-  uses?: number
+  uses?: number | "∞"
   upgrades?: Array<Upgrade>
 
   constructor(state: Partial<GenericCard>) {

@@ -27,14 +27,12 @@ body {
   .tokens {
     display: flex;
     flex-wrap: wrap;
-    gap: 1px;
-
   }
 
   .token {
     margin: 0;
     padding: 0;
-    font-size: 0.75rem;
+    font-size: 10pt;
     outline: 1px dotted black;
     width: 1in;
     height: 1in;
@@ -50,6 +48,7 @@ body {
   .token .value {
     display: block;
     padding-left: 0.4rem;
+    font-size: smaller;
   }
 
   .token > .value > .directions  {

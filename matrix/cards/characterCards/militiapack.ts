@@ -1,5 +1,5 @@
 
-import { GenericCard, Health, Movement, DamageBonus, Damage, Attack, Upgrade, RangeDirections, orthogonalRanges, adjacentRanges, diagonalRanges, forwardRanges, NONE } from "../pack_base.js";
+import { GenericCard, Health, Movement, DamageBonus, Damage, Attack, Upgrade, RangeDirections, orthogonalRanges, adjacentRanges, diagonalRanges, forwardRanges, aheadRanges, NONE } from "../pack_base.js";
 
 const RiflemanCard = new GenericCard({
     name: "Rifleman",
@@ -79,7 +79,6 @@ const SniperCard = new GenericCard({
                 type: ["d4"],
                 bonus: 2,
             },
-            notes: NONE,
         }
     ],
     passive: NONE,
@@ -87,35 +86,72 @@ const SniperCard = new GenericCard({
     uses: 0,
     upgrades: [],
 })
-const Card = new GenericCard({
-    name: "Sniper",
+const OfficerCard = new GenericCard({
+    name: "Officer",
     rarity: "Uncommon",
-    health: "Max Sniper Health",
+    health: "6",
     movement: {
         distance: 1,
-        direction: adjacentRanges,
+        direction: orthogonalRanges,
     },
     attacks: [
         {
-            name: "Sniper Rifle",
+            name: "Pistol",
+            range: {
+                distance: 2,
+                direction: orthogonalRanges
+            },
+            damage: 1,
+        }
+    ],
+    passive: NONE,
+    ability: "You may play a card from your hand onto any space next to this Token",
+    uses: 3,
+    upgrades: [],
+})
+const BarricadeCard = new GenericCard({
+    name: "Barricade",
+    rarity: "Common",
+    health: 10,
+    movement: null,
+    attacks: null,
+    passive: "Cannot attack anything linearly behind this token",
+    ability: "If a friendly Token is next to this Token this Token may heal 2 Health",
+    uses: "∞",
+    upgrades: []
+})
+const TankCard = new GenericCard({
+    name: "Tank",
+    rarity: "Rare",
+    health: {
+        type: [ "d8", "d8"],
+        bonus: 10
+    },
+    movement: {
+        distance: 1,
+        direction: orthogonalRanges
+    },
+    attacks: [
+        {
+            name: "120 mm Shell",
             range: {
                 distance: 4,
-                direction: adjacentRanges
+                direction: aheadRanges,
             },
             damage: {
-                type: ["d4"],
-                bonus: 2,
+                type: ["d4", "d4", "d4"],
+                bonus: 0,
             },
-            notes: NONE,
+            notes: "Does + 2 damage to Castle Cards",
         }
     ],
     passive: NONE,
     ability: NONE,
     uses: 0,
-    upgrades: [],
+    upgrades: []
 })
 
 export const militiaPack = [
-    RiflemanCard, GrenadierCard, SniperCard
+    RiflemanCard, GrenadierCard, SniperCard, OfficerCard, BarricadeCard, TankCard
 ];
 
