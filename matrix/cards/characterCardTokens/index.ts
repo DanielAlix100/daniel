@@ -1,11 +1,11 @@
 const NONE = "none";
 
-import { farmPack } from "../cards/characterCards/farmpack.js";
-import { militiaPack } from "../cards/characterCards/militiapack.js";
-import type { DamageBonus, GenericCard, Health, Movement, RangeDirections } from "../cards/pack_base.js";
+import { farmPack } from "../characterCards/farmpack.js";
+import { militiaPack } from "../characterCards/militiapack.js";
+import type { DamageBonus, GenericCard, Health, Movement, RangeDirections } from "../pack_base.js";
 
-export const farmTokens = tokenizePack(farmPack);
-export const militiaTokens = tokenizePack(militiaPack);
+const farmTokens = tokenizePack(farmPack);
+const militiaTokens = tokenizePack(militiaPack);
 
 type Token = {
     name: string | undefined;
@@ -53,7 +53,7 @@ function tokenizePack(pack: GenericCard[]) {
     return tokens;
 }
 
-export function print(target: HTMLElement, tokens: Token[]) {
+function print(target: HTMLElement, tokens: Token[]) {
     const printer = new TokenPrinter(target);
     const tokenList = [] as Token[];
     tokens.forEach(token => {
@@ -120,7 +120,16 @@ class TokenPrinter {
 }
 
 
-export function run(target = document.querySelector<HTMLElement>(".page")) {
+export function run(target: HTMLElement, pack: "militia" | "farm") {
     if (!target) throw "target not found";
-    print(target, [...militiaTokens]);
+    switch (pack) {
+        case "militia":
+            print(target, militiaTokens);
+            break;
+        case "farm":
+            print(target, farmTokens);
+            break;
+        default:
+            throw `${pack} is an invalid pack name`;
+    }
 }

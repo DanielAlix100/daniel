@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Home</title>
+  <style>
+    @import url(./tokens.css);
+
+    @media print {
+      .page {
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page page1">
+    [page 1 goes here]
+  </div>
+  <div class="page page2">
+    [page 2 goes here]
+  </div>
+  <script type="module">
+    import { run } from "../cards/characterCardTokens/index.js";
+    run(document.querySelector(".page1"), "farm");
+    run(document.querySelector(".page2"), "militia");
+  </script>
+</body>
+
+</html>

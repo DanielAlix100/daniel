@@ -162,15 +162,28 @@
     .attack .attack > .label {
       font-style: normal;
     }
+
+    @media print {
+      .page {
+        page-break-after: always;
+      }
+    }
+
   </style>
 </head>
 
 <body>
   <script type="module">
     import { run } from "../cards/characterCards/index.js"
-    run();
+    run(document.querySelector(".page1 > .cards"), "farm");
+    run(document.querySelector(".page2 > .cards"), "militia");
   </script>
-  <div class="cards"></div>
+  <div class="page page1">
+    <div class="cards"></div>
+  </div>
+  <div class="page page2">
+    <div class="cards"></div>
+  </div>  
 </body>
 
 </html>

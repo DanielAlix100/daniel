@@ -7,6 +7,12 @@
   <style>
     @import url(./castles.css);
     @import url(./tokens.css);
+
+    @media print {
+      .page {
+        page-break-after: always;
+      }
+    }
   </style>
 </head>
 
@@ -14,13 +20,20 @@
   <script type="module">
 
     import { run as printCastles } from "../cards/castleCards/index.js";
-    printCastles(document.querySelector(".castles"));
+    import { run as printTokens } from "../cards/characterCardTokens/index.js"
 
-    import { run as printTokens } from "../tokens/index.js"
-    printTokens(document.querySelector(".tokens"));
+    printCastles(document.querySelector(".page1 > .castles"), "farm");
+    printTokens(document.querySelector(".page1 > .tokens"), "farm");
+
+    printCastles(document.querySelector(".page2 > .castles"), "militia");
+    printTokens(document.querySelector(".page2 > .tokens"), "militia");
 
   </script>
-  <div class="page">
+  <div class="page page1">
+    <div class="tokens"></div>
+    <div class="castles"></div>
+  </div>
+  <div class="page page2">
     <div class="tokens"></div>
     <div class="castles"></div>
   </div>

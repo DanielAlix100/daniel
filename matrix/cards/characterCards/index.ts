@@ -2,8 +2,11 @@ import { farmPack } from "./farmpack.js";
 import { militiaPack } from "./militiapack.js";
 import { print } from "../pack_base.js";
 
-export function run() {
-    const target = document.querySelector<HTMLElement>(".cards");
+const packs = {
+    militia: militiaPack,
+    farm: farmPack
+}
+export function run(target: HTMLElement, pack: keyof typeof packs) {
     if (!target) throw "target not found";
-    print(target, [ ...militiaPack]);
+    print(target, packs[pack]);
 }
