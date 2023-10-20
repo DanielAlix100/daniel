@@ -14,10 +14,10 @@
   <script type="module">
 
     import { run as printCastles } from "../cards/castleCards/index.js";
-    printCastles();
+    printCastles(document.querySelector(".castles"));
 
     import { run as printTokens } from "../tokens/index.js"
-    printTokens();
+    printTokens(document.querySelector(".tokens"));
 
   </script>
   <div class="page">

@@ -27,6 +27,7 @@ body {
   .tokens {
     display: flex;
     flex-wrap: wrap;
+    gap: 1px; /* to align with castle cards */
   }
 
   .token {

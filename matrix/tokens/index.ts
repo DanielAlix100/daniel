@@ -120,6 +120,7 @@ class TokenPrinter {
 }
 
 
-export function run() {
-    print(document.querySelector(".page")!, [...militiaTokens]);
+export function run(target = document.querySelector<HTMLElement>(".page")) {
+    if (!target) throw "target not found";
+    print(target, [...militiaTokens]);
 }
