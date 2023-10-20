@@ -6,13 +6,17 @@
   <title>Home</title>
   <style>
     @import url(./castles.css);
+    .page {
+      margin:1rem;
+    }
   </style>
 </head>
 
 <body>
   <script type="module">
     import { run } from "../cards/castleCards/index.js"
-    run(document.querySelector(".castles"));
+    run(document.querySelector(".castles"), "farm");
+    run(document.querySelector(".castles"), "militia");
   </script>
   <div class="page">
     <div class="castles"></div>
