@@ -30,7 +30,7 @@ type Attack = {
   notes?: string;
 }
 
-type Dice = "d4" | "-d4" | "d6" | "d8" | "d10" | "d12" | "d20" | "d100" | "d8*d4"
+type Dice = "d4" | "-d4" | "d6" | "d8" | "d10" | "d12" | "d20" | "d100" | "d8*d"
 type Rarity =
   | "Common"
   | "Uncommon"

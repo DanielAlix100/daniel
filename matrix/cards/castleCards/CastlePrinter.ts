@@ -1,4 +1,6 @@
-import { Attack, Damage, DamageBonus, Health, NONE, RangeDirections, Rarity, Range } from "../pack_base.js";
+import { Attack, Damage, DamageBonus, Health, NONE, RangeDirections, Rarity, Range, Dice } from "../pack_base.js";
+
+const EMPTY = "";
 
 export type Castle = {
     name: string;
@@ -38,9 +40,9 @@ export class CastlePrinter {
             return `
     <div class="attack">
       <span class="label">${attack.name}</span>, 
-      ${range} 
+      Range: ${range} 
       ${damage} 
-      ${attack.notes ? (", " + attack.notes) : ""}
+      ${attack.notes ? (", Notes: " + attack.notes) : ""}
     </div>`;
         }
     }
@@ -48,8 +50,10 @@ export class CastlePrinter {
     printRange(range?: Range) {
         if (!range) return NONE;
         const direction = this.printDirection(range.direction);
-        const distance = range.distance;
-        return `<div class="directions">${direction}</div>: ${distance}`;
+        const distance = range.distance || "";
+        const output = `<div class="directions">${direction}</div>`;
+        if (!distance) return output;
+        return `${output}: ${distance}`
       }
 
       printDirection(direction: string | RangeDirections[]): string {
@@ -60,9 +64,19 @@ export class CastlePrinter {
     
     printDamageBonus(dice?: DamageBonus) {
         if (!dice) return "none";
-        if (!dice.bonus) return dice.type;
-        return `${dice.type}+${dice.bonus}`;
+        const diceStr = this.printDice(dice.type);
+        if (!dice.bonus) return diceStr;
+        return `${diceStr}+${dice.bonus}`;
     }
+
+    printDice(type: Dice | Dice[]): string {
+        if (Array.isArray(type)) {
+          const hash = {} as Record<string, number>;
+          type.forEach(t => hash[t] = (hash[t] || 0) + 1);
+          return Object.keys(hash).map(key => `${hash[key]}${key}`).join("+");
+        }
+        return type;
+      }
 
     printDamage(damage?: Damage) {
         if (!damage) return "none";

@@ -34,7 +34,9 @@ export class CardPrinter {
 
   printDice(type: Dice | Dice[]): string {
     if (Array.isArray(type)) {
-      return type.map(t => this.printDice(t)).join("+");
+      const hash = {} as Record<string, number>;
+      type.forEach(t => hash[t] = (hash[t] || 0) + 1);
+      return Object.keys(hash).map(key => `${hash[key]}${key}`).join("+");
     }
     return type;
   }

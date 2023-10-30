@@ -79,3 +79,9 @@ body {
 .health {
   display: inline-block;
 }
+
+.attack,
+.direction,
+.directions {
+  display: inline;
+}
