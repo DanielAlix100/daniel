@@ -1,65 +1,81 @@
 body {
-    margin: 0;
-    padding: 0;
-  }
+  margin: 0;
+  padding: 0;
+}
 
-  .bold {
-    font-weight: 1000;
-  }
+.bold {
+  font-weight: 1000;
+}
 
-  .bold::after {
-    content: ""
-  }
+.bold::after {
+  content: ""
+}
 
-  .page {
-    width: 8.5in;
-    height: 11in;
-  }
+.page {
+  width: 8.5in;
+  height: 11in;
+}
 
-  .castles {
-    font-size: 0.7rem;
-    display: grid;
-    grid-template-columns: 4in 4in;
-    column-gap: 0.075in;
-  }
+.castles {
+  font-size: 0.7rem;
+  display: grid;
+  grid-template-columns: 4in 4in;
+  column-gap: 0.075in;
+}
 
-  .castle {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    outline: 1px dashed #0004;
-    width: 4in;
-    height: 1in;
-  }
+.castle {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  outline: 1px dashed #0004;
+  width: 4in;
+  height: 1in;
+}
 
 
-  .card-name {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 1rem;
-    font-weight: 1000;
-    text-align: center;
-    background-color: #0002;
-  }
+.card-name {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1rem;
+  font-weight: 1000;
+  text-align: center;
+  background-color: #0002;
+}
 
-  .card-name.plus {
-    color: red;
-  }
+.card-name.plus {
+  color: red;
+}
 
-  .card-name.plus::after {
-    content: " +";
-  }
+.card-name.plus::after {
+  content: " +";
+}
 
-  .rarity {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
+.rarity {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
 
-  .rarity>.value {
-    color: green;
-  }
+.rarity.Common>.value {
+  color: gray;
+}
 
-  .rarity.Common>.value {
-    color: gray;
-  }
+.rarity>.value {
+  color: green;
+}
 
-  .damage,
-  .health {
-    display: inline-block;
-  }
+.rarity.Rare>.value {
+  color: royalblue;
+}
+
+.rarity.Epic>.value {
+  color: indigo;
+}
+
+.rarity.Legendary>.value {
+  color: gold;
+}
+
+.rarity.Mythic>.value {
+  color: red;
+}
+
+.damage,
+.health {
+  display: inline-block;
+}

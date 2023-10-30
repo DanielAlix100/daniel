@@ -1,15 +1,20 @@
-import { print as farmPrint, castles as farmCastles } from "./farmCastles.js";
-import { print as militiaPrint, castles as militiaCastles } from "./militiaCastles.js";
+import { castles as farmCastles } from "./farmCastles.js";
+import { castles as militiaCastles } from "./militiaCastles.js";
+import { castles as medievalCastles } from "./medievalCastles.js";
+import { print } from "./CastlePrinter.js"
 
-export function run(target: HTMLElement, pack: "farm" | "militia") {
+export function run(target: HTMLElement, pack: string) {
     if (!target) throw 'target not found';
 
     switch (pack) {
         case "farm":
-            farmPrint(target, farmCastles);
+            print(target, farmCastles);
             break;
         case "militia":
-            militiaPrint(target, militiaCastles);
+            print(target, militiaCastles);
+            break;
+        case "medieval":
+            print(target, medievalCastles);
             break;
         default:
             throw `${pack} is an invalid pack name`;

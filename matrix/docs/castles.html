@@ -6,8 +6,9 @@
   <title>Home</title>
   <style>
     @import url(./castles.css);
+
     .page {
-      margin:2rem;
+      margin: 2rem;
     }
   </style>
 </head>
@@ -17,6 +18,7 @@
     import { run } from "../cards/castleCards/index.js"
     run(document.querySelector(".castles"), "farm");
     run(document.querySelector(".castles"), "militia");
+    run(document.querySelector(".castles"), "medieval");
   </script>
   <div class="page">
     <div class="castles"></div>

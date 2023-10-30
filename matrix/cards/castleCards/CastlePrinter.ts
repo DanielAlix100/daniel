@@ -1,5 +1,14 @@
-import { Attack, Damage, DamageBonus, Health, NONE } from "../pack_base.js";
-import { Castle, asDom } from "./farmCastles.js";
+import { Attack, Damage, DamageBonus, Health, NONE, RangeDirections, Rarity, Range } from "../pack_base.js";
+
+export type Castle = {
+    name: string;
+    rarity: Rarity;
+    health: Health;
+    damage: Damage;
+    ability: null | string | Partial<Attack>;
+    passive: null | string;
+    uses: number;
+}
 
 export class CastlePrinter {
 
@@ -19,21 +28,36 @@ export class CastlePrinter {
         }
         return "todo";
     }
-    printAttack(attack?: Attack | Attack[]): string {
+    printAttack(attack?: Partial<Attack> | Partial<Attack>[]): string {
         if (!attack) return "none";
         if (Array.isArray(attack)) {
             return attack.map(a => this.printAttack(a)).join("");
         } else {
+            const range =  this.printRange(attack.range);
             const damage = this.printDamage(attack.damage);
             return `
     <div class="attack">
       <span class="label">${attack.name}</span>, 
+      ${range} 
       ${damage} 
       ${attack.notes ? (", " + attack.notes) : ""}
     </div>`;
         }
     }
 
+    printRange(range?: Range) {
+        if (!range) return NONE;
+        const direction = this.printDirection(range.direction);
+        const distance = range.distance;
+        return `<div class="directions">${direction}</div>: ${distance}`;
+      }
+
+      printDirection(direction: string | RangeDirections[]): string {
+        if (!direction) return NONE;
+        if (typeof direction === "string") return `<div class="direction ${direction}">${direction}</div>`;
+        return direction.map(d => this.printDirection(d)).join("");
+      }
+    
     printDamageBonus(dice?: DamageBonus) {
         if (!dice) return "none";
         if (!dice.bonus) return dice.type;
@@ -82,11 +106,26 @@ export class CastlePrinter {
         this.dom.append(asDom(template));
     }
 
-    printAbility(abilities: string | Attack | null | undefined) {
+    printAbility(abilities: string | Partial<Attack> | null | undefined) {
         if (!abilities) return "none";
         if (typeof abilities === "string") return abilities;
         return this.printAttack(abilities);
     }
 
 
+}
+
+export function asDom(html: string) {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.firstElementChild as HTMLElement;
+}
+
+export function print(target: HTMLElement, castles: Castle[]) {
+    const printer = new CastlePrinter(target);
+    castles.forEach(c => {
+        for (let i = 0; i < 2; i++) {
+            printer.print(c);
+        }
+    });
 }

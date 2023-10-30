@@ -1,31 +1,4 @@
-import { CastlePrinter } from "./CastlePrinter.js";
-import { Attack, Damage, GenericCard, Health, Rarity } from "../pack_base.js";
-
-export function asDom(html: string) {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.firstElementChild as HTMLElement;
-}
-
-export function print(target: HTMLElement, castles: Castle[]) {
-    const printer = new CastlePrinter(target);
-    castles.forEach(c => {
-        for (let i = 0; i < 2; i++) {
-            printer.print(c);
-        }
-    });
-}
-
-
-export type Castle = {
-    name: string;
-    rarity: Rarity;
-    health: Health;
-    damage: Damage;
-    ability: null | string | Attack;
-    passive: null | string;
-    uses: number;
-}
+import type { Castle } from "./CastlePrinter.js";
 
 export const castles = [
     {

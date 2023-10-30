@@ -19,6 +19,7 @@ export {
   adjacentRanges,
   forwardRanges,
   aheadRanges,
+  behindRanges,
   NONE
 }
 
@@ -29,7 +30,7 @@ type Attack = {
   notes?: string;
 }
 
-type Dice = "d4" | "-d4" | "d6" | "d8" | "d10" | "d12" | "d20" | "d100"
+type Dice = "d4" | "-d4" | "d6" | "d8" | "d10" | "d12" | "d20" | "d100" | "d8*d4"
 type Rarity =
   | "Common"
   | "Uncommon"
@@ -39,7 +40,7 @@ type Rarity =
   | "Mythic"
   | "Uncommon+"
 
-type RangeDirections = "←" | "↑" | "→" | "↓" | "↖" | "↗" | "↘" | "↙";
+type RangeDirections = "↧" | "←" | "↑" | "→" | "↓" | "↖" | "↗" | "↘" | "↙";
 type RangeDirection = RangeDirections | Array<RangeDirections>;
 
 const orthogonalRanges: RangeDirections[] = ["←", "↑", "↓", "→"];
@@ -47,6 +48,7 @@ const diagonalRanges: RangeDirections[] = ["↖", "↙", "↗", "↘"];
 const adjacentRanges: RangeDirections[] = orthogonalRanges.concat(diagonalRanges);
 const forwardRanges: RangeDirections[] = ["↖", "↑", "↗"];
 const aheadRanges: RangeDirections[] = ["↑"];
+const behindRanges: RangeDirections[] = ["↧"];
 
 type Movement = {
   distance: number;
@@ -54,7 +56,7 @@ type Movement = {
 }
 
 type Range = {
-  distance: number | "Touch"
+  distance?: number | "Touch"
   direction: RangeDirection
 }
 
