@@ -2,10 +2,12 @@ const NONE = "none";
 
 import { farmPack } from "../characterCards/farmpack.js";
 import { militiaPack } from "../characterCards/militiapack.js";
+import { medievalPack } from "../characterCards/medievalpack.js";
 import type { DamageBonus, GenericCard, Health, Movement, RangeDirections } from "../pack_base.js";
 
 const farmTokens = tokenizePack(farmPack);
 const militiaTokens = tokenizePack(militiaPack);
+const medievalTokens = tokenizePack(medievalPack);
 
 type Token = {
     name: string | undefined;
@@ -30,7 +32,7 @@ function tokenizePack(pack: GenericCard[]) {
             const health = damage.health;
             const movement = damage.movement;
             tokens.push({
-                name: attack.name,
+                name: damage.name,
                 health,
                 movement,
             });
@@ -120,7 +122,7 @@ class TokenPrinter {
 }
 
 
-export function run(target: HTMLElement, pack: "militia" | "farm") {
+export function run(target: HTMLElement, pack: "militia" | "farm" | "medieval") {
     if (!target) throw "target not found";
     switch (pack) {
         case "militia":
@@ -129,7 +131,10 @@ export function run(target: HTMLElement, pack: "militia" | "farm") {
         case "farm":
             print(target, farmTokens);
             break;
-        default:
+        case "medieval":
+            print(target, medievalTokens);
+            break;
+            default:
             throw `${pack} is an invalid pack name`;
     }
 }

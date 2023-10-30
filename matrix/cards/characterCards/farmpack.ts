@@ -71,7 +71,7 @@ const ScarecrowCard = new GenericCard({
     {
       name: "Crow Launch",
       range: {
-        distance: 1,
+        distance: 3,
         direction: forwardRanges,
       },
       damage: 1,

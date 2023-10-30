@@ -13,7 +13,7 @@
     .cards {
       height: 11in;
       width: 8.5in;
-      padding:0.4in;
+      padding: 0.4in;
     }
 
     .bold {
@@ -101,7 +101,7 @@
     .directions {
       display: inline-block;
       position: relative;
-      top:0.5rem;
+      top: 0.5rem;
       width: 1.2rem;
       height: 1.2rem;
       font-size: 0.5rem;
@@ -148,18 +148,18 @@
     }
 
     .direction.↘ {
-      transform: translate(var(--offset),var(--offset));
+      transform: translate(var(--offset), var(--offset));
     }
 
-    .attacks > .attack {
+    .attacks>.attack {
       display: block;
     }
 
-    .attack > .label {
+    .attack>.label {
       font-style: italic;
     }
 
-    .attack .attack > .label {
+    .attack .attack>.label {
       font-style: normal;
     }
 
@@ -168,22 +168,25 @@
         page-break-after: always;
       }
     }
-
   </style>
 </head>
 
 <body>
   <script type="module">
     import { run } from "../cards/characterCards/index.js"
-    run(document.querySelector(".page1 > .cards"), "farm");
+    run(document.querySelector(".page1 > .cards"), "medieval");
     run(document.querySelector(".page2 > .cards"), "militia");
+    run(document.querySelector(".page3 > .cards"), "farm")
   </script>
   <div class="page page1">
     <div class="cards"></div>
   </div>
   <div class="page page2">
     <div class="cards"></div>
-  </div>  
+  </div>
+  <div class="page page3">
+    <div class="cards"></div>
+  </div>
 </body>
 
 </html>

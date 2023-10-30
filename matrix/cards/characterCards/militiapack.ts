@@ -62,7 +62,7 @@ const GrenadierCard = new GenericCard({
 
 const SniperCard = new GenericCard({
     name: "Sniper",
-    rarity: "Uncommon",
+    rarity: "Uncommon+",
     health: "Max Sniper Health",
     movement: {
         distance: 1,
@@ -105,7 +105,7 @@ const OfficerCard = new GenericCard({
         }
     ],
     passive: NONE,
-    ability: "You may play a card from your hand onto any space next to this Token",
+    ability: "Move Out!: You may play a card from your hand onto any space next to this Token",
     uses: 3,
     upgrades: [],
 })
@@ -115,8 +115,8 @@ const BarricadeCard = new GenericCard({
     health: 10,
     movement: null,
     attacks: null,
-    passive: "Cannot attack anything linearly behind this token",
-    ability: "If a friendly Token is next to this Token this Token may heal 2 Health",
+    passive: "enemy tokens cannot attack anything behind this token",
+    ability: "Rebuild: If a friendly Token is next to this Token this Token may heal 2 Health",
     uses: "∞",
     upgrades: []
 })
