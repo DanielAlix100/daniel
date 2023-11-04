@@ -3,7 +3,7 @@ const NONE = "none";
 import { farmPack } from "../characterCards/farmpack.js";
 import { militiaPack } from "../characterCards/militiapack.js";
 import { medievalPack } from "../characterCards/medievalpack.js";
-import type { DamageBonus, GenericCard, Health, Movement, RangeDirections } from "../pack_base.js";
+import type { DamageBonus, Dice, GenericCard, Health, Movement, RangeDirections } from "../pack_base.js";
 
 const farmTokens = tokenizePack(farmPack);
 const militiaTokens = tokenizePack(militiaPack);
@@ -112,12 +112,22 @@ class TokenPrinter {
         return "todo";
     }
 
-    printDamageBonus(dice?: DamageBonus) {
-        if (!dice) return "none";
-        if (!dice.bonus) return dice.type;
-        return `${dice.type}+${dice.bonus}`;
+    printDamageBonus(damageBonus?: DamageBonus) {
+        if (!damageBonus) return "none";
+        if (!damageBonus.bonus) damageBonus
+        const dice = damageBonus.type;
+        return this.printDice(dice);
     }
-
+    
+    printDice(type: Dice | Dice[]): string {
+        if (Array.isArray(type)) {
+          const hash = {} as Record<string, number>;
+          type.forEach(t => hash[t] = (hash[t] || 0) + 1);
+          return Object.keys(hash).map(key => `${hash[key]}${key}`).join("+");
+        }
+        return type;
+      }
+    
 
 }
 
